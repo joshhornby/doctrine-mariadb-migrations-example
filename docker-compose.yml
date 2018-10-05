@@ -1,0 +1,21 @@
+version: "3.1"
+services:
+  mariadb-doctrine:
+    image: mariadb:10.3.5
+    container_name: mariadb-doctrine
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=api
+      - MYSQL_USER=api
+      - MYSQL_PASSWORD=api
+    ports:
+      - "7791:3306"
+
+  doctrine:
+    build: .
+    container_name: doctrine
+    working_dir: /var/www/www
+    volumes:
+    - .:/var/www/www
+    links:
+    - mariadb-doctrine
